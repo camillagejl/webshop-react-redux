@@ -2,16 +2,19 @@ import React from 'react';
 import Product from "./Product";
 import './Products.css';
 import { useSelector, useDispatch } from 'react-redux';
-import {selectProduct} from "../features/products/productsSlice";
+import {selectProducts} from "../features/products/productsSlice";
 
 function Products() {
-    const allProducts = useSelector(selectProduct);
+    const allProducts = useSelector(selectProducts);
 
-    console.log(allProducts);
+    console.log("Products,", allProducts);
 
     return (
         <div className="products">
-            <Product />
+
+            {allProducts.map((product, index) => (
+                <Product product={product} index={index} />
+            ))}
         </div>
     );
 }

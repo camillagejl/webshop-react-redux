@@ -1,30 +1,36 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {fetchCount} from './counterAPI';
+import appleImg from '../../assets/apple.jpg';
+import orangeImg from '../../assets/orange.jpg';
+import pearImg from '../../assets/pear.jpg';
+import strawberryImg from '../../assets/strawberry.jpg';
 
 const initialState = {
-    products: {
-        apple: {
-            amount: 0,
+    products: [
+        {
+            name: 'apple',
+            img: appleImg,
             price: 2.50
         },
-        orange: {
-            amount: 0,
+        {
+            name: 'orange',
+            img: orangeImg,
             price: 4
         },
-        pear: {
-            amount: 0,
+        {
+            name: 'pear',
+            img: pearImg,
             price: 3.50
         },
-        strawberry: {
-            amount: 0,
+        {
+            name: 'strawberry',
+            img: strawberryImg,
             price: 0.10
         }
-    },
+],
     cart: {
         products: {
-
-        },
-        totalPrice: 0
+            apple: 7
+        }
     }
 };
 
@@ -53,6 +59,19 @@ export const productsSlice = createSlice({
             const amount = action.payload.amount;
 
             dest[product] = amount;
+
+            // dest.forEach(product => {
+            //     for (const [key, value] of Object.entries(product)) {
+            //         console.log(`${key}: ${value}`);
+            //
+            //         if (key === 'name' && value === product) {
+            //             console.log("This exists");
+            //         }
+            //         else {
+            //             console.log("Doesn't exist");
+            //         }
+            //     }
+            // })
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -74,7 +93,8 @@ export const { newProductInCart } = productsSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectProduct = (state) => state.products;
+export const selectProducts = (state) => state.products.products;
+export const selectCart = (state) => state.products.cart.products;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

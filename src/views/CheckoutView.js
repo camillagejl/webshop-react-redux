@@ -1,8 +1,12 @@
 import React from 'react';
 import ProductsListItem from "../components/ProductsListItem";
 import './CheckoutView.css';
+import {useSelector} from "react-redux";
+import {selectCart} from "../features/products/productsSlice";
 
 function CheckoutView() {
+    const productsInCart = useSelector(selectCart);
+
     return (
         <div>
 

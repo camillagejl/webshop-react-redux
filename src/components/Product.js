@@ -1,11 +1,42 @@
 import React, {useState} from 'react';
-import appleImg from '../assets/apple.jpg';
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import './Product.css';
-import {selectProduct} from "../features/products/productsSlice";
-import {newProductInCart} from "../features/products/productsSlice";
+import {newProductInCart, selectCart, selectProducts} from "../features/products/productsSlice";
 
-function Product() {
+function Product(props) {
+    const cartProducts = useSelector(selectCart);
+    let cartAmountFromState = 0;
+
+    const product = props.product;
+
+    for (const [cartProduct, amount] of Object.entries(cartProducts)) {
+        if (cartProduct === product.name) {
+            cartAmountFromState = amount;
+        }
+    }
+
+    const price = (Math.round((product.price) * 100) / 100).toFixed(2);
+
+    // Local state for amount of this product in cart
+    const [cartAmount, setCartAmount] = useState(cartAmountFromState);
+
+    function changeAmountFromAction(action) {
+
+        if (action === 'increment') {
+            setCartAmount(parseInt(cartAmount) + 1);
+        }
+        if (action === 'decrement') {
+            setCartAmount(parseInt(cartAmount) - 1);
+        }
+
+        dispatch(newProductInCart({product: product.name, amount: {cartAmount}}))
+
+    }
+
+    const changeAmountFromInput = (e) => {
+        setCartAmount(e.target.value);
+        dispatch(newProductInCart({product: product.name, amount: {cartAmount}}))
+    }
 
     const dispatch = useDispatch();
 
@@ -13,37 +44,35 @@ function Product() {
         <div className="product">
 
             <h2 className="productTitle">
-                Apple
+                {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
             </h2>
             <div className="productImage">
-                <img src={appleImg} />
+                <img src={product.img} alt={"Image of product: " + product.name}/>
             </div>
-            <div className="productPrice">
-                2,95kr
+            <div className="productBottom">
+                <div className="productPrice">
+                    {price} kr
+                </div>
+                <div className="productAmount">
+                    <label>
+                        Product amount
+                        <div className="productAmountInput">
+                            <button id="decrement">-</button>
+                            <input
+                                type="number"
+                                id="productAmount"
+                                name="productAmount"
+                                value={cartAmount}
+                                onChange={changeAmountFromInput}
+                            />
+                            <button
+                                id="increment"
+                                onClick={() => changeAmountFromAction('increment')}>+
+                            </button>
+                        </div>
+                    </label>
+                </div>
             </div>
-            <div className="productAmount">
-                <label>
-                    Product amount
-                    <div className="productAmountInput">
-                <button id="decrement">-</button>
-                <input type="number" id="productAmount" name="productAmount" value="0" />
-                <button id="increment">+</button>
-                    </div>
-                </label>
-            </div>
-
-            <button
-                onClick={() => dispatch(newProductInCart({product: 'apple', amount: '7'}))}
-            >
-                Add 7
-            </button>
-
-            <button
-                onClick={() => dispatch(newProductInCart({product: 'apple', amount: '3'}))}
-            >
-                Add 3
-            </button>
-
         </div>
     );
 }

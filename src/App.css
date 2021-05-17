@@ -1,39 +1,50 @@
+html {
+  background-color: pink;
+}
+
 .App {
-  text-align: center;
+  background-color: #F5F5F5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.products {
+  margin-top: 32px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+h1 {
+  margin: 16px 0;
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* NAVIGATION */
+
+
+nav {
+  background-color: #FEE6F7;
+  padding: 16px 0;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.pageTitle {
+  color: grey;
+  font-weight: bold;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+nav ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+nav li {
+  display: inline-block;
+  padding: 0 16px;
+  margin: 0;
+}
+
+nav li:first-child {
+  padding: 0 16px 0 0;
+}
+
+nav a {
+  text-decoration: none;
 }

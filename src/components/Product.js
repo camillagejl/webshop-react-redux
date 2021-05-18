@@ -1,44 +1,49 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import './Product.css';
-import {newProductInCart, selectCart, selectProducts} from "../features/products/productsSlice";
+import {
+    newProductInCart,
+    productAmountByValue,
+    productDecrement,
+    productIncrement,
+    selectCart
+} from "../features/products/productsSlice";
 
 function Product(props) {
+    const dispatch = useDispatch();
+
     const cartProducts = useSelector(selectCart);
-    let cartAmountFromState = 0;
+    let cartAmount = 0;
 
     const product = props.product;
 
     for (const [cartProduct, amount] of Object.entries(cartProducts)) {
         if (cartProduct === product.name) {
-            cartAmountFromState = amount;
+            cartAmount = amount;
         }
     }
 
     const price = (Math.round((product.price) * 100) / 100).toFixed(2);
 
-    // Local state for amount of this product in cart
-    const [cartAmount, setCartAmount] = useState(cartAmountFromState);
-
-    function changeAmountFromAction(action) {
-
-        if (action === 'increment') {
-            setCartAmount(parseInt(cartAmount) + 1);
-        }
-        if (action === 'decrement') {
-            setCartAmount(parseInt(cartAmount) - 1);
-        }
-
-        dispatch(newProductInCart({product: product.name, amount: {cartAmount}}))
-
+    // function changeAmountFromAction(action) {
+    //
+    //     if (action === 'increment') {
+    //         dispatch(newProductInCart({product: product.name, amount: cartAmount}))
+    //     }
+    //     if (action === 'decrement') {
+    //         cartAmount--;
+    //     }
+    //
+    //     dispatch(newProductInCart({product: product.name, amount: cartAmount}))
+    //
+    // }
+    //
+    const updateAmount = (e) => {
+        let newAmount = parseInt(e.target.value);
+        if (isNaN(newAmount)) newAmount = 0;
+        console.log(newAmount);
+        dispatch(productAmountByValue({product: product.name, amount: newAmount}))
     }
-
-    const changeAmountFromInput = (e) => {
-        setCartAmount(e.target.value);
-        dispatch(newProductInCart({product: product.name, amount: {cartAmount}}))
-    }
-
-    const dispatch = useDispatch();
 
     return (
         <div className="product">
@@ -57,17 +62,25 @@ function Product(props) {
                     <label>
                         Product amount
                         <div className="productAmountInput">
-                            <button id="decrement">-</button>
+
+                            <button
+                                id="decrement"
+                                onClick={() => dispatch(productDecrement({product: product.name}))}
+                            >
+                                -
+                            </button>
                             <input
-                                type="number"
+                                type="text"
                                 id="productAmount"
                                 name="productAmount"
-                                value={cartAmount}
-                                onChange={changeAmountFromInput}
+                                value={cartProducts[product.name] || 0}
+                                onChange={updateAmount}
                             />
                             <button
                                 id="increment"
-                                onClick={() => changeAmountFromAction('increment')}>+
+                                onClick={() => dispatch(productIncrement({product: product.name}))}
+                            >
+                                +
                             </button>
                         </div>
                     </label>

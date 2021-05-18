@@ -4,16 +4,14 @@ import './Products.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {selectProducts} from "../features/products/productsSlice";
 
-function Products() {
-    const allProducts = useSelector(selectProducts);
+function Products(props) {
+    const products = props.products;
 
-    console.log("Products,", allProducts);
-
-    return (
+        return (
         <div className="products">
 
-            {allProducts.map((product, index) => (
-                <Product product={product} index={index} />
+            {products.map((product) => (
+                <Product product={product} />
             ))}
         </div>
     );

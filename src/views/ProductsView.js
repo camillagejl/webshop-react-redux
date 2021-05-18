@@ -13,7 +13,10 @@ function ProductsView() {
                 Products
             </h1>
 
-            <Products products={displayProducts}/>
+            <Products
+                products={displayProducts}
+                error={'No products to display.'}
+            />
         </div>
     );
 }

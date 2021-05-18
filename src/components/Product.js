@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import './Product.css';
 import {
-    newProductInCart,
     productAmountByValue,
     productDecrement,
     productIncrement,
@@ -25,19 +24,6 @@ function Product(props) {
 
     const price = (Math.round((product.price) * 100) / 100).toFixed(2);
 
-    // function changeAmountFromAction(action) {
-    //
-    //     if (action === 'increment') {
-    //         dispatch(newProductInCart({product: product.name, amount: cartAmount}))
-    //     }
-    //     if (action === 'decrement') {
-    //         cartAmount--;
-    //     }
-    //
-    //     dispatch(newProductInCart({product: product.name, amount: cartAmount}))
-    //
-    // }
-    //
     const updateAmount = (e) => {
         let newAmount = parseInt(e.target.value);
         if (isNaN(newAmount)) newAmount = 0;

@@ -13,21 +13,14 @@
     margin: 0;
 }
 
-.productImage {
-}
-
 .productImage img {
     max-width: 100%;
     box-sizing: border-box;
 
 }
 
-.productPrice {
-
-}
-
-.productAmount {
-
+.productAmountInput {
+    display: flex;
 }
 
 .productAmountInput input {

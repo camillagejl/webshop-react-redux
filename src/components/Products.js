@@ -6,6 +6,7 @@ import {selectProducts} from "../features/products/productsSlice";
 
 function Products(props) {
     const products = props.products;
+    const errorMessage = props.error;
 
         return (
         <div className="products">
@@ -13,6 +14,12 @@ function Products(props) {
             {products.map((product) => (
                 <Product product={product} />
             ))}
+
+            {products.length === 0 &&
+            <div className="errorMessage">
+                {errorMessage}
+            </div>
+            }
         </div>
     );
 }

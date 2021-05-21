@@ -7,8 +7,11 @@ function CartView() {
     const allProducts = useSelector(selectProducts);
     const productsInCart = useSelector(selectCart);
 
+    // This array will contain the product information from products in Store, but only for the products that are also
+    // in the cart.
     const products = [];
 
+    // The total amount of products and the total, accumulated price.
     let productsAmount = 0;
     let totalPrice = 0;
 
@@ -39,7 +42,7 @@ function CartView() {
 
             <Products
                 products={products}
-                error={'Your cart is empty.'}
+                noProductsFound={'Your cart is empty.'}
             />
 
             <div className="totalAmount">

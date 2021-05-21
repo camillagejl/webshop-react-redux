@@ -1,16 +1,18 @@
 import React from 'react';
 import ProductsListItem from "../components/ProductsListItem";
-import './CheckoutView.css';
 import {useSelector} from "react-redux";
 import {selectCart, selectProducts} from "../features/products/productsSlice";
-import Product from "../components/Product";
+import './CheckoutView.css';
 
 function CheckoutView() {
     const allProducts = useSelector(selectProducts);
     const productsInCart = useSelector(selectCart);
 
+    // This array will contain the product information from products in Store, but only for the products that are also
+    // in the cart.
     const products = [];
 
+    // The total amount of products and the total, accumulated price.
     let productsAmount = 0;
     let totalPrice = 0;
 
@@ -39,6 +41,7 @@ function CheckoutView() {
                 Checkout
             </h1>
 
+            {!products || products.length > 0 &&
             <table>
                 <tr>
                     <th>
@@ -58,6 +61,19 @@ function CheckoutView() {
 
             </table>
 
+                }
+
+
+            {products.length === 0 &&
+            <div className="errorMessage">
+                Your cart is empty.
+            </div>
+            }
+
+
+            <div className="totalAmount">
+                Total amount of products: {productsAmount}
+            </div>
             <div className="totalPrice">
                 Total price: {(Math.round((totalPrice) * 100) / 100).toFixed(2)} kr
             </div>

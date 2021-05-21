@@ -14,3 +14,8 @@ td {
 tr:nth-child(odd) {
     background-color: #dddddd;
 }
+
+.totalPrice {
+    font-size: 24px;
+    text-align: right;
+}

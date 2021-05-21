@@ -1,23 +1,29 @@
 import React from 'react';
 import Product from "./Product";
 import './Products.css';
-import { useSelector, useDispatch } from 'react-redux';
-import {selectProducts} from "../features/products/productsSlice";
+import {useSelector} from "react-redux";
+import {selectCart} from "../features/products/productsSlice";
 
 function Products(props) {
     const products = props.products;
-    const errorMessage = props.error;
+    const noProductsFound = props.noProductsFound;
+    const cartProducts = useSelector(selectCart);
 
         return (
         <div className="products">
 
             {products.map((product) => (
-                <Product product={product} />
+                <Product
+                    key={product.name}
+                    product={product}
+                    productAmount={cartProducts[product.name] || 0}
+                />
             ))}
 
+            {/* An "error" message is */}
             {products.length === 0 &&
-            <div className="errorMessage">
-                {errorMessage}
+            <div className="noProductsFound">
+                {noProductsFound}
             </div>
             }
         </div>

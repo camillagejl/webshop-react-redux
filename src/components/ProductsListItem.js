@@ -3,19 +3,14 @@ import {useSelector} from "react-redux";
 import {selectCart} from "../features/products/productsSlice";
 
 function ProductListItem(props) {
+    // The information about the product is handed down from the parent component.
     const product = props.product;
 
-    const cartProducts = useSelector(selectCart);
 
-    let cartAmount = 0;
+    const productAmount = props.productAmount;
 
-    for (const [cartProduct, amount] of Object.entries(cartProducts)) {
-        if (cartProduct === product.name) {
-            cartAmount = amount;
-        }
-    }
-
-    const price = (Math.round((product.price * cartAmount) * 100) / 100).toFixed(2);
+    // The price is taken from the product, but "beautified" here to have two decimals.
+    const price = (Math.round((product.price * productAmount) * 100) / 100).toFixed(2);
 
     return (
         <tr>
@@ -23,7 +18,7 @@ function ProductListItem(props) {
                 {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
             </td>
             <td>
-                {cartAmount}
+                {productAmount}
             </td>
             <td>
                 {price} kr

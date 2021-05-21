@@ -7,6 +7,10 @@ import {selectCart} from "../features/products/productsSlice";
 function Products(props) {
     const products = props.products;
     const noProductsFound = props.noProductsFound;
+
+    // We use the products in the cart to find the amount of the specified product in the cart.
+    // We give this as a prop to the product here, so we only have to load the cart once instead of
+    // in every product to find each product's amount.
     const cartProducts = useSelector(selectCart);
 
         return (

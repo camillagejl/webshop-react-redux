@@ -3,6 +3,7 @@ import ProductsListItem from "../components/ProductsListItem";
 import {useSelector} from "react-redux";
 import {selectCart, selectProducts} from "../features/products/productsSlice";
 import './CheckoutView.css';
+import Product from "../components/Product";
 
 function CheckoutView() {
     const allProducts = useSelector(selectProducts);
@@ -34,6 +35,14 @@ function CheckoutView() {
         })
     }
 
+    // The total price is "beautified" here to have two decimals.
+    let totalPriceFixed = (Math.round((totalPrice) * 100) / 100).toFixed(2);
+
+    // We use the products in the cart to find the amount of the specified product in the cart.
+    // We give this as a prop to the product here, so we only have to load the cart once instead of
+    // in every product to find each product's amount.
+    const cartProducts = useSelector(selectCart);
+
     return (
         <div>
 
@@ -56,7 +65,11 @@ function CheckoutView() {
                 </tr>
 
                 {products.map((product) => (
-                    <ProductsListItem product={product}/>
+                    <ProductsListItem
+                        key={product.name}
+                        product={product}
+                        productAmount={cartProducts[product.name] || 0}
+                    />
                 ))}
 
             </table>
@@ -75,7 +88,7 @@ function CheckoutView() {
                 Total amount of products: {productsAmount}
             </div>
             <div className="totalPrice">
-                Total price: {(Math.round((totalPrice) * 100) / 100).toFixed(2)} kr
+                Total price: {totalPriceFixed} kr
             </div>
 
         </div>

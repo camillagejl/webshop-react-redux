@@ -33,6 +33,9 @@ function CartView() {
         })
     }
 
+    // The total price is "beautified" here to have two decimals.
+    let totalPriceFixed = (Math.round((totalPrice) * 100) / 100).toFixed(2);
+
     return (
         <div>
 
@@ -49,7 +52,7 @@ function CartView() {
                 Total amount of products: {productsAmount}
             </div>
             <div className="totalPrice">
-                Total price: {(Math.round((totalPrice) * 100) / 100).toFixed(2)} kr
+                Total price: {totalPriceFixed} kr
             </div>
 
         </div>

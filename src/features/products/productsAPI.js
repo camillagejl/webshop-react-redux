@@ -34,7 +34,13 @@ export function fetchProducts() {
     ];
 
     // Returns a Promise, like an actual API call would, with the above data.
-    return new Promise((resolve) =>
-        setTimeout(() => resolve({data: productsData}), 2000)
+    return new Promise((resolve, reject) =>
+        setTimeout(() => {
+
+            // This reject function can be used to test if the .rejected action runs properly at fail.
+            // reject();
+
+            resolve({data: productsData})
+        }, 2000)
     );
 }

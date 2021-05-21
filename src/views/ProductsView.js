@@ -9,10 +9,22 @@ function ProductsView() {
     const displayProducts = useSelector(selectProducts);
     const productsStatus = useSelector(selectProductsStatus);
 
-    console.log(productsStatus);
+    let noProductsMessage = 'No products to display.';
 
-    if (displayProducts.length === 0) {
+    // If fetchProductsAsync hasn't run yet, run it to load products.
+    if (productsStatus === 'idle') {
         dispatch(fetchProductsAsync());
+    }
+
+    // When the productsStatus changes, the message on the page changes with it.
+    if (productsStatus === 'loading') {
+        noProductsMessage = 'Loading products...';
+    }
+    else if (productsStatus === 'failed') {
+        noProductsMessage = 'Sorry, there was a problem loading the products.';
+    }
+    else {
+        noProductsMessage = 'No products to display.';
     }
 
     return (
@@ -24,7 +36,7 @@ function ProductsView() {
 
             <Products
                 products={displayProducts}
-                noProductsFound={'No products to display.'}
+                noProductsFound={noProductsMessage}
             />
 
         </div>

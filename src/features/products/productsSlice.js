@@ -26,7 +26,7 @@ export const fetchProductsAsync = createAsyncThunk(
 // createSlice is where we define our reducers, and which state it should use to create new states.
 // Reducers take the state and run a given action, creating a new version of the state.
 
-// In Redux, it is possible, but bad practice, to mutate the state. Mutating the state undermines the
+// In Redux, it is possible, but bad practice, to mutate the state. Mutating the state undermines a big
 // point of using Redux. However, Redux Toolkit makes it possible to use "mutating" logic with Immer
 // library, so the reducers don't mutate the state but create a new one.
 export const productsSlice = createSlice({
@@ -63,24 +63,22 @@ export const productsSlice = createSlice({
         builder
             .addCase(fetchProductsAsync.pending, (state) => {
                 state.productsStatus = 'loading';
+                console.log("pending...")
             })
             .addCase(fetchProductsAsync.fulfilled, (state, action) => {
                 state.products = action.payload;
-                state.productsStatus = 'idle';
+                state.productsStatus = 'loaded';
                 console.log(action.payload);
             })
             .addCase(fetchProductsAsync.rejected, (state, action) => {
                 state.productsStatus = 'failed';
+                console.log("productStatus failed");
             });
     },
 });
 
 // Exports the reducers that we need in other files.
 export const {productIncrement, productDecrement, productAmountByValue} = productsSlice.actions;
-
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 
 // To select specified values or parts of the state, se use 'useSelector()'.
 // useSelector needs the to know which part of the the state we want to select, and instead of defining it inline

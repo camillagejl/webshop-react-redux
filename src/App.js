@@ -36,7 +36,6 @@ function App() {
                             </li>
                         </ul>
                     </nav>
-
             </header>
             <Switch>
                 <Route exact path="/">

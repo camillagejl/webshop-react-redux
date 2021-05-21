@@ -29,7 +29,6 @@ function ProductsView() {
 
     return (
         <div>
-
             <h1>
                 Products
             </h1>
@@ -38,7 +37,6 @@ function ProductsView() {
                 products={displayProducts}
                 noProductsFound={noProductsMessage}
             />
-
         </div>
     );
 }

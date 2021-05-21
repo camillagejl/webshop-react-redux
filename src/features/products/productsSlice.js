@@ -44,9 +44,10 @@ export const productsSlice = createSlice({
             const dest = state.cart.products;
             const product = action.payload.product;
 
-            if (!dest[product]) dest[product] = 0;
-            if (dest[product] === 1) delete dest[product];
-            if (dest[product] > 0) dest[product]--;
+            if (dest[product]) {
+                if (dest[product] === 1) delete dest[product];
+                if (dest[product] > 0) dest[product]--;
+            }
         },
         productAmountByValue: (state, action) => {
             const dest = state.cart.products;

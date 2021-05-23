@@ -83,13 +83,16 @@ function CheckoutView() {
             </div>
             }
 
-
-            <div className="totalAmount">
-                Total amount of products: {productsAmount}
+            {products.length !== 0 &&
+            <div>
+                <div className="totalAmount">
+                    Total amount of products: {productsAmount}
+                </div>
+                <div className="totalPrice">
+                    Total price: {totalPriceFixed} kr
+                </div>
             </div>
-            <div className="totalPrice">
-                Total price: {totalPriceFixed} kr
-            </div>
+            }
 
         </div>
     );

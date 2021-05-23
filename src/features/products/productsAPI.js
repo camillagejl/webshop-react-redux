@@ -38,7 +38,7 @@ export function fetchProducts() {
         setTimeout(() => {
 
             // This reject function can be used to test if the .rejected action runs properly at fail.
-            // reject();
+            // reject('reject test');
 
             resolve({data: productsData})
         }, 2000)

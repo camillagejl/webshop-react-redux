@@ -13,16 +13,22 @@ function Products(props) {
     // in every product to find each product's amount.
     const cartProducts = useSelector(selectCart);
 
-        return (
-        <div className="products">
+    return (
+        <div>
+            {products.length !== 0 &&
+            <div className="products">
 
-            {products.map((product) => (
-                <Product
-                    key={product.name}
-                    product={product}
-                    productAmount={cartProducts[product.name] || 0}
-                />
-            ))}
+                {products.map((product) => (
+                    <Product
+                        key={product.name}
+                        product={product}
+                        productAmount={cartProducts[product.name] || 0}
+                    />
+                ))}
+
+            </div>
+
+            }
 
             {/* An "error" message is */}
             {products.length === 0 &&

@@ -88,4 +88,51 @@ export const selectProducts = (state) => state.products.products;
 export const selectProductsStatus = (state) => state.products.productsStatus;
 export const selectCart = (state) => state.products.cart.products;
 
+// The below selectors don't just return part of the state the same way as the above, but gives us computed properties
+// based on the state. I.e. the selectCartProducts returns all the products in the cart, with the information taken from
+// the products array in state.
+export const selectCartProducts = (state) => {
+    const products = [];
+
+    // Loops over all products in the cart
+    for (const [cartProduct, amount] of Object.entries(state.cart.products)) {
+
+        // Loops over all products in store to find the the product information for the products in cart.
+        state.products.products.forEach(product => {
+            if (product.name === cartProduct) {
+
+                // If a product is in the cart, the information about the product is added to the array.
+                products.push(product);
+            }
+        })
+    }
+
+    return products;
+}
+
+export const selectTotalsInCart = (state) => {
+    let totalPrice = 0;
+    let productsAmount = 0;
+
+    for (const [cartProduct, amount] of Object.entries(state.cart.products)) {
+
+        // Loops over all products to find the the product information.
+        state.products.products.forEach(product => {
+            if (product.name === cartProduct) {
+
+                // Calculates the accumulated price for this product, and adds this to the total price.
+                totalPrice += product.price * amount;
+
+                // Adds the amount of this product to the total productsAmount.
+                productsAmount += amount;
+            }
+        })
+    }
+
+    return {
+        price: (Math.round((totalPrice) * 100) / 100).toFixed(2),
+        amount: productsAmount
+    }
+}
+
 export default productsSlice.reducer;

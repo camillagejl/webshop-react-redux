@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* Redux uses the Provider to make the store available to the whole app. */}
     <Provider store={store}>
       <App />
     </Provider>

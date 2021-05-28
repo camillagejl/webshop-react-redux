@@ -10,9 +10,18 @@ import {
 } from "react-router-dom";
 import CheckoutView from "./views/CheckoutView";
 import CartView from "./views/CartView";
-
+import {useDispatch, useSelector} from "react-redux";
+import {fetchProductsAsync, selectProductsStatus} from "./features/products/productsSlice";
 
 function App() {
+    const dispatch = useDispatch();
+
+    const productsStatus = useSelector(selectProductsStatus);
+    // If fetchProductsAsync hasn't run yet, run it to load products.
+    if (productsStatus === 'idle') {
+        dispatch(fetchProductsAsync());
+    }
+
     return (
         <Router>
             <div className="App">

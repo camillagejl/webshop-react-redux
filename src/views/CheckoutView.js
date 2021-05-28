@@ -52,6 +52,7 @@ function CheckoutView() {
 
             {!products || products.length > 0 &&
             <table>
+                <thead>
                 <tr>
                     <th>
                         Product
@@ -63,7 +64,9 @@ function CheckoutView() {
                         Price
                     </th>
                 </tr>
+                </thead>
 
+                <tbody>
                 {products.map((product) => (
                     <ProductsListItem
                         key={product.name}
@@ -71,7 +74,7 @@ function CheckoutView() {
                         productAmount={cartProducts[product.name] || 0}
                     />
                 ))}
-
+                </tbody>
             </table>
 
                 }

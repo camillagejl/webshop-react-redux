@@ -5,16 +5,10 @@ import {fetchProductsAsync, selectProducts, selectProductsStatus} from "../featu
 import "../App.css";
 
 function ProductsView() {
-    const dispatch = useDispatch();
-    const displayProducts = useSelector(selectProducts);
+    const products = useSelector(selectProducts);
     const productsStatus = useSelector(selectProductsStatus);
 
     let noProductsMessage = 'No products to display.';
-
-    // If fetchProductsAsync hasn't run yet, run it to load products.
-    if (productsStatus === 'idle') {
-        dispatch(fetchProductsAsync());
-    }
 
     // When the productsStatus changes, the message on the page changes with it.
     if (productsStatus === 'loading') {
@@ -34,7 +28,7 @@ function ProductsView() {
             </h1>
 
             <Products
-                products={displayProducts}
+                products={products}
                 noProductsFound={noProductsMessage}
             />
         </div>

@@ -44,3 +44,4 @@ export function fetchProducts() {
         }, 2000)
     );
 }
+

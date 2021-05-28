@@ -11,7 +11,11 @@ td {
     border: 1px solid lightgrey;
 }
 
-tr:nth-child(odd) {
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+thead tr {
     background-color: #dddddd;
 }
 

@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {selectCart, selectCartProducts, selectProducts, selectTotalsInCart} from "../features/products/productsSlice";
 
 function CartView() {
-const products = useSelector(selectCartProducts)
+    const products = useSelector(selectCartProducts)
     const totalsInCart = useSelector(selectTotalsInCart)
 
     return (
